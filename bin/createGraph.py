@@ -1,0 +1,42 @@
+from graphviz import Digraph
+
+dot = Digraph(comment='Nodes Response')
+
+#agregamos los nodos
+dot.node('0', '2247')
+dot.node('1', '771')
+dot.node('2', '1476')
+dot.node('3', '187')
+dot.node('4', '584')
+dot.node('5', '686')
+dot.node('6', '790')
+dot.node('7', '350')
+dot.node('8', '234')
+dot.node('9', '212')
+dot.node('10', '474')
+dot.node('11', '440')
+dot.node('12', '350')
+dot.node('13', '235')
+dot.node('14', '239')
+dot.node('15', '319')
+dot.node('16', '121')
+
+#agregamos las aristas
+dot.edge('0', '1')
+dot.edge('0', '2')
+dot.edge('1', '3')
+dot.edge('1', '4')
+dot.edge('4', '7')
+dot.edge('4', '8')
+dot.edge('2', '5')
+dot.edge('2', '6')
+dot.edge('5', '9')
+dot.edge('5', '10')
+dot.edge('6', '11')
+dot.edge('6', '12')
+dot.edge('10', '13')
+dot.edge('10', '14')
+dot.edge('11', '15')
+dot.edge('11', '16')
+
+dot.render('round-table.gv', view=True)
