@@ -1,10 +1,4 @@
 ########################################################################
-# setup.py,
-#
-# Script that allows to generate the installation of the project and the
-# python modules in the directory of the same, in order to be able to be
-# recognized from any python call and be indexed within the library itself.
-#
 # Copyright (C) 2019  David Medina Ortiz, david.medina@cebib.cl
 #
 # This program is free software; you can redistribute it and/or modify
@@ -32,13 +26,13 @@ class SetupConfiguration:
 
     def setupInstall(self):
 
-        setup(name='NONLINEAR_MODELS',
+        setup(name='RECURSIVE_CLUSTERING_MODULES',
             version='1.0',
             description='Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
             author='David Medina',
             author_email='david.medina@cebib.cl',
             license='Open GPL 3',
-            packages=['modulesNLM', 'modulesNLM.clustering_analysis', 'modulesNLM.checks_module', 'modulesNLM.supervised_learning_analysis', 'modulesNLM.supervised_learning_predicction', 'modulesNLM.utils', 'modulesNLM.graphic', 'modulesNLM.statistics_analysis', 'modulesNLM.statisticsCorroboration'],)
+            packages=['modulesRV', 'modulesRV.clustering_analysis', 'modulesRV.checks_module', 'modulesRV.utils', 'modulesRV.graphic', 'modulesRV.statistics_analysis', 'modulesRV.statisticsCorroboration'],)
 
 def main():
 
