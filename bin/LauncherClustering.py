@@ -18,6 +18,7 @@
 
 import sys
 import pandas as pd
+import os
 
 #preprocessing modules
 from modulesRV.checks_module import checkDataSet
@@ -25,6 +26,7 @@ from modulesRV.utils import preprocesingDataSet
 
 #clustering modules
 from modulesRV.clustering_analysis import makeRecursiveExec
+from modulesRV.clustering_analysis import evaluatedProcessSplitter
 
 print "GET PARAMS FROM COMMAND LINE"
 #recibimos la data
@@ -53,9 +55,17 @@ dataInput_scaleDF =pd.DataFrame(dataInput_scale, columns=header)
 
 print "CLUSTERING PROCESS"
 
+#creamos el directorio para almacenar los resultados
+command = "mkdir -p %sresultClustering" % pathResponse
+os.system(command)
+
+pathResponse = pathResponse+"resultClustering/"
 tree = makeRecursiveExec.BinaryTree()
 #Nodo raiz con la informacion del dataSet inicial
 initialSize = dataInput_scaleDF.shape[0]
 tree.insert(dataInput_scaleDF)
 tree.split(tree.top,dataInput_scaleDF, pathResponse, initialSize, percentageMember, significanciaLevel)
 tree.diagramSplit(pathResponse)
+
+print "EVALUATED PROCESS AND CREATE RESPONSE VIEW"
+evaluatedProcess = evaluatedProcessSplitter.evaluatedClusteringProcess(pathResponse, header)

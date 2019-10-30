@@ -16,8 +16,8 @@
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
 ########################################################################
 
-from modulesRV import nodo
-from modulesRV import callService
+from modulesRV.clustering_analysis import nodoClass
+from modulesRV.clustering_analysis import callService
 import graphviz as gp
 import pylab
 import pandas as pd
@@ -28,32 +28,33 @@ class BinaryTree(object):
         self.top = None
 
     # Llamada para dividir grupo de forma recursiva
-    def split(self, nodoElement, dataInput_scaleDF, pathResponse, len_data, percentageMember, significanciaLevel):
+    def split(self, nodo, dataSet, pathResponse, sizeEval, percentage, significancia):
         #print "Llamando a servicio -> ",dataSet.shape[0]
-        callServiceObject = callService.serviceClustering(dataInput_scaleDF, pathResponse, len_data, percentageMember, significanciaLevel)
+        callServiceObject = callService.serviceClustering(dataSet, pathResponse, sizeEval, percentage, significancia)
         #callService debe retornar un arreglo en donde [sePuedeDividir,dataFramegrupo1,dataFramegrupo2]
         result = callServiceObject.execProcess()
         if isinstance(result,list):
             if(result[0] == -1):
                 #print "No puedo dividir: ",dataSet.shape[0]
-                return nodoElement
+                dataSet.to_csv(pathResponse+""+str(dataSet.shape[0])+'_'+str(int(round(time.time() * 1000)))+'.csv')
+                return nodo
             else:
-                #print "Dividir -> ",dataSet.shape[0]
-                #print "G1: ",result[1].shape[0]
-                #print "G2: ",result[2].shape[0]
-                #Los sleep es para generar id unicos por cada dataframe que se agrega al arbol
-                nodoElement.left = nodo.Nodo(result[1])
+                print "Dividir -> ",dataSet.shape[0]
+                print "G1: ",result[1].shape[0]
+                print "G2: ",result[2].shape[0]
+                #Los sleep es para generar id unicos por cada dataframe que se agregaal arbol
+                nodo.left = nodoClass.Nodo(result[1])
                 time.sleep(0.05)
-                nodoElement.right = nodo.Nodo(result[2])
+                nodo.right = nodoClass.Nodo(result[2])
                 time.sleep(0.05)
-                nodoElement.left = self.split(nodoElement.left,result[1], pathResponse, len_data, percentageMember, significanciaLevel)
+                nodo.left = self.split(nodo.left,result[1], pathResponse, sizeEval, percentage, significancia)
                 time.sleep(0.05)
-                nodoElement.right = self.split(nodoElement.right,result[2], pathResponse, len_data, percentageMember, significanciaLevel)
-                return nodoElement
+                nodo.right = self.split(nodo.right,result[2], pathResponse, sizeEval, percentage, significancia)
+                return nodo
         else:
-            #almacena nodoElement anterior que se pudo dividir
-            dataInput_scaleDF.to_csv(pathResponse+""+str(dataInput_scaleDF.shape[0])+'_'+str(int(round(time.time() * 1000)))+'.csv')
-            return nodoElement
+            #almacena nodo anterior que se pudo dividir
+            dataSet.to_csv(pathResponse+""+str(dataSet.shape[0])+'_'+str(int(round(time.time() * 1000)))+'.csv', index=False)
+            return nodo
 
     # Llamar funcion recursiva para dibujar arbol
     def diagramSplit(self, pathResult) :
@@ -77,4 +78,4 @@ class BinaryTree(object):
 
     # Insercion para el nodo raiz
     def insert(self, data):
-        self.top = nodo.Nodo(data)
+        self.top = nodoClass.Nodo(data)

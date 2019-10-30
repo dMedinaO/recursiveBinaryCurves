@@ -142,9 +142,9 @@ class checkProcess(object):
             pValueCombined.append(value)
 
         print pValueCombined
-        print min(pValueCombined)
+        print min(listPvalue)
 
-        if min(pValueCombined)<=significancia:
+        if min(listPvalue)<=significancia:
             print "rechazo H0"
             return 1#rechazo H0
         else:
