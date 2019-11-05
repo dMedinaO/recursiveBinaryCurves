@@ -18,6 +18,7 @@
 
 import pandas as pd
 import os
+from modulesRV.clustering_analysis import evaluationClustering
 
 class evaluatedClusteringProcess(object):
 
@@ -27,6 +28,8 @@ class evaluatedClusteringProcess(object):
         self.header = header
 
         self.getNameFilesInResponse()
+        self.createUniqDataSet()#archivo unico para formar el conjunto de datos
+        self.getPerformance()#obtener las medidas de desempeno
 
     #metodo que permite poder obtener
     def getNameFilesInResponse(self):
@@ -39,4 +42,48 @@ class evaluatedClusteringProcess(object):
             if ".csv" in element:
                 self.listCluster.append(element)
 
-    #metodo que permite formar el unico conjunto de datos para hacer la
+    #metodo que permite formar el unico conjunto de datos para hacer la evaluacion de desempeno
+    def createUniqDataSet(self):
+        self.matrixData = []
+        self.header = []
+        self.arrayClass = []
+
+        #obtenemos el header
+        inputFile = pd.read_csv(self.pathResult+self.listCluster[0])
+        for element in inputFile:
+            self.header.append(element)
+
+        indexClass = 0
+
+        #generamos una matriz para formas las descripciones de los grupos obtenidos
+        self.matrixDescription = []
+
+        #obtenemos la data y las clases
+        for element in self.listCluster:
+
+            readDoc = pd.read_csv(self.pathResult+element)
+            for i in range(len(readDoc)):
+                rowData = []
+                for value in self.header:
+                    rowData.append(readDoc[value][i])
+                self.matrixData.append(rowData)
+                self.arrayClass.append(indexClass)
+            indexClass+=1
+
+            row = []
+            id = element.split(".")[0]
+            members = len(readDoc)
+            row.append(id)
+            row.append(members)
+            self.matrixDescription.append(row)
+
+        #exportamos el dataFrame
+        dfExport = pd.DataFrame(self.matrixDescription, columns=['ID', 'Members'])
+        dfExport.to_csv(self.pathResult+"summaryGroups.csv", index=False)
+
+    #metodo que permite hacer la evaluacion de la medida de desempeno
+    def getPerformance(self):
+
+        evaluateClustering = evaluationClustering.evaluationClustering(self.matrixData, self.arrayClass)
+        self.calinski = evaluateClustering.calinski
+        self.siluetas = evaluateClustering.siluetas

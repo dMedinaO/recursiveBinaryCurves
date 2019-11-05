@@ -176,7 +176,6 @@ class execAlgorithm(object):
         #solo si la ejecucion fue correcta!
         if self.response['responseExec'] == "OK":
 
-            print "Eval clustering"
             #evaluamos el clustering y obtenemos los resultados...
             result = evaluationClustering.evaluationClustering(self.dataSet, self.applyClustering.labels)#evaluamos...
             self.response.update({"calinski_harabaz_score": result.calinski})
@@ -187,7 +186,6 @@ class execAlgorithm(object):
             self.dataSet["Labels"] = pd.Series(self.applyClustering.labels, index=self.dataSet.index)
             self.dataSet.to_csv(self.pathResponse+"responseClustering.csv")
 
-            print "Create file responseClustering.csv"
             #hacemos el conteo de los elementos por grupo para la generacion del grafico de torta asociada a la cantidad de grupos...
             countGroup, keys, values = self.countMemberGroup()
             self.response.update({"membersGroup":countGroup})
@@ -197,12 +195,10 @@ class execAlgorithm(object):
             createChartsObject = createCharts.graphicsCreator()
             createChartsObject.createPieChart(keys, values, namePic)
 
-        print self.response
         #exportamos tambien el resultado del json
         with open(self.pathResponse+"responseClustering.json", 'w') as fp:
             json.dump(self.response, fp)
 
-        print "Create file responseClustering.json"
 
     #metodo que recibe una lista y genera un diccionario asociado a los grupos y su cantidad...
     def countMemberGroup(self):

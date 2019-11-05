@@ -28,6 +28,9 @@ from modulesRV.utils import preprocesingDataSet
 from modulesRV.clustering_analysis import makeRecursiveExec
 from modulesRV.clustering_analysis import evaluatedProcessSplitter
 
+#statisticsSummary modules
+from modulesRV.statistics_analysis import summaryStatistics
+
 print "GET PARAMS FROM COMMAND LINE"
 #recibimos la data
 dataInput = pd.read_csv(sys.argv[1])
@@ -35,6 +38,9 @@ pathResponse = sys.argv[2]
 optionScale = int(sys.argv[3])
 percentageMember = float(sys.argv[4])
 significanciaLevel = float(sys.argv[5])
+
+print "GET STATISTICS VALUES"
+summaryProcess = summaryStatistics.statisticsSummary(dataInput, pathResponse)
 
 #obtenemos el header...
 header = []

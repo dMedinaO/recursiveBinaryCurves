@@ -46,7 +46,6 @@ class serviceClustering(object):
         contIndex = 0
         contIndexError = 0
 
-        print "Process K-Means"
         k=2
         responseExec = self.applyClustering.aplicateKMeans(k)#se aplica el algoritmo...
 
@@ -68,7 +67,6 @@ class serviceClustering(object):
             indexResponseError.append(contIndexError)
 
         #aplicamos Birch
-        print "Process Birch"
         responseExec = self.applyClustering.aplicateBirch(k)#se aplica el algoritmo...
 
         if responseExec == 0:
@@ -87,7 +85,6 @@ class serviceClustering(object):
             indexResponseError.append(contIndexError)
 
         #aplicamos AgglomerativeClustering
-        print "Process AgglomerativeClustering"
         for affinity in ['euclidean', 'l1', 'l2', 'manhattan', 'cosine', 'precomputed']:
             for linkage in ['ward', 'complete', 'average', 'single']:
                 responseExec = self.applyClustering.aplicateAlgomerativeClustering(linkage, affinity, k)#se aplica el algoritmo...
@@ -169,13 +166,10 @@ class serviceClustering(object):
                     return [1,dataG1,dataG2] #podemos seguir dividiendo, retorno los grupos
                     #return 1#podemos seguir dividiendo
                 else:
-                    print "Error I"
                     return [-1,-1,-1]#no se puede seguir dividiendo
             else:
-                print "Error I"
                 return [-1,-1,-1]#no se puede seguir dividiendo
         else:
-            print "Error II"
             return [-1,-1,-1] #no se puede seguir dividiendo
 
     #funcion que permite poder contar los elementos de la clase o categoria indicada

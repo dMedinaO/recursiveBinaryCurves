@@ -42,7 +42,6 @@ class summaryProcessClusteringScan(object):
         graphic = createCharts.graphicsCreator()
 
         for key in keys:
-            print "Create histogram for ", key
             namePicture = self.pathResponse+key+".svg"
             title = "Histogram for "+key
             graphic.generateHistogram(self.dataFrame, key, namePicture, title)
@@ -56,7 +55,6 @@ class summaryProcessClusteringScan(object):
         #trabajamos con las estadisticas...
         for key in self.dataFrame:
             try:
-                print "Process ", key
                 row = []
                 row.append(key)
                 row.append(np.mean(self.dataFrame[key]))

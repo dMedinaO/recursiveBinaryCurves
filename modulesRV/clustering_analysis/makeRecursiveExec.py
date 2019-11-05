@@ -39,9 +39,6 @@ class BinaryTree(object):
                 dataSet.to_csv(pathResponse+""+str(dataSet.shape[0])+'_'+str(int(round(time.time() * 1000)))+'.csv')
                 return nodo
             else:
-                print "Dividir -> ",dataSet.shape[0]
-                print "G1: ",result[1].shape[0]
-                print "G2: ",result[2].shape[0]
                 #Los sleep es para generar id unicos por cada dataframe que se agregaal arbol
                 nodo.left = nodoClass.Nodo(result[1])
                 time.sleep(0.05)
@@ -58,7 +55,6 @@ class BinaryTree(object):
 
     # Llamar funcion recursiva para dibujar arbol
     def diagramSplit(self, pathResult) :
-        print "Imprimir"
         tree = gp.Graph(format='png')
         if(self.top != None):
             self.draw(self.top,tree);
