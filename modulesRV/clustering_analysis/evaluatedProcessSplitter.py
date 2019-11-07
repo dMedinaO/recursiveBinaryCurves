@@ -19,6 +19,7 @@
 import pandas as pd
 import os
 from modulesRV.clustering_analysis import evaluationClustering
+from modulesRV.statistics_analysis import summaryStatistics
 
 class evaluatedClusteringProcess(object):
 
@@ -68,6 +69,10 @@ class evaluatedClusteringProcess(object):
                     rowData.append(readDoc[value][i])
                 self.matrixData.append(rowData)
                 self.arrayClass.append(indexClass)
+
+            #aca hacemos que se genere el archivo de estadisticas
+            summaryProcess = summaryStatistics.statisticsSummary(readDoc, self.pathResult+element.split(".")[0]+"_statisticsSummary.csv")
+
             indexClass+=1
 
             row = []
@@ -78,7 +83,7 @@ class evaluatedClusteringProcess(object):
             self.matrixDescription.append(row)
 
         #exportamos el dataFrame
-        dfExport = pd.DataFrame(self.matrixDescription, columns=['ID', 'Members'])
+        dfExport = pd.DataFrame(self.matrixDescription, columns=['IDGroup', 'Members'])
         dfExport.to_csv(self.pathResult+"summaryGroups.csv", index=False)
 
     #metodo que permite hacer la evaluacion de la medida de desempeno

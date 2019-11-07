@@ -40,7 +40,7 @@ percentageMember = float(sys.argv[4])
 significanciaLevel = float(sys.argv[5])
 
 print "GET STATISTICS VALUES"
-summaryProcess = summaryStatistics.statisticsSummary(dataInput, pathResponse)
+summaryProcess = summaryStatistics.statisticsSummary(dataInput, pathResponse+"statisticsSummary.csv")
 
 #obtenemos el header...
 header = []

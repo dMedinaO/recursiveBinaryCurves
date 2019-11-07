@@ -51,4 +51,4 @@ class statisticsSummary(object):
             matrixData.append(self.calculateValuesForColumn(key))
 
         dfExport = pd.DataFrame(matrixData, columns=["Feature", "Mean", "StandarDeviation", "Variance", "MaxValue", "MinValue"])
-        dfExport.to_csv(self.pathResponse+"statisticsSummary.csv", index=False)
+        dfExport.to_csv(self.pathResponse, index=False)

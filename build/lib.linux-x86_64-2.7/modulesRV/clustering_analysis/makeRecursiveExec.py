@@ -36,7 +36,7 @@ class BinaryTree(object):
         if isinstance(result,list):
             if(result[0] == -1):
                 #print "No puedo dividir: ",dataSet.shape[0]
-                dataSet.to_csv(pathResponse+""+str(dataSet.shape[0])+'_'+str(int(round(time.time() * 1000)))+'.csv')
+                dataSet.to_csv(pathResponse+""+str(dataSet.shape[0])+'_'+str(int(round(time.time() * 1000)))+'.csv', index=False)
                 return nodo
             else:
                 #Los sleep es para generar id unicos por cada dataframe que se agregaal arbol

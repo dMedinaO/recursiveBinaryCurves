@@ -28,7 +28,9 @@ class preprocessingUtil(object):
 
     def applyScale(self):
 
-        if self.optionScale == 1:#quick scale
+        if self.optionScale == 0:
+            pass            
+        elif self.optionScale == 1:#quick scale
             self.dataSet = preprocessing.scale(self.dataSet)
 
         elif self.optionScale == 2:#standar scale
